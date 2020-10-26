@@ -24,7 +24,7 @@ Se explica cómo utilizar los operadores `[]`, `[[]]` y `$` para extraer informa
 de diferentes tipos de vectores.
 
 ### 4. Gráficos en R
-Se presentan algunos ejemplos de cómo hacer gŕaficos con base R, pero se hace énfasis
+Se presentan algunos ejemplos de cómo hacer gráficos con base R, pero se hace énfasis
 en cómo hacer gráficos con  ggplot2.
 
 ### 5. Manipulación de datos en R
