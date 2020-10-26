@@ -28,9 +28,9 @@ Se presentan algunos ejemplos de cómo hacer gŕaficos con base R, pero se hace 
 en cómo hacer gráficos con  ggplot2.
 
 ### 5. Manipulación de datos en R
-Se presenta formalmente a los paquetes de tidyverse. Se explica como utilizar
+Se presenta formalmente a los paquetes del tidyverse. Se explica cómo utilizar
 el operador `%>%` del paquete magrittr y varias funciones de los paquetes
-tidyr y dplyr para transformación de datos.
+tidyr y dplyr para transformar datos.
 
 ### 6. Iteraciones en R
 Se presenta el uso de for loops y el paquete purrr para iterar sobre los
