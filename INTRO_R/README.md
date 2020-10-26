@@ -39,7 +39,7 @@ evaluación tidy para integrar funciones de ggplot2 en funciones personalizadas.
 
 ## Bibliografía
 
-La gran mayoría de este material está basado en la información contenida en:
+La mayor parte de este material está basado en la información contenida en:
 
 + [R for Data Science](https://r4ds.had.co.nz/).
 
