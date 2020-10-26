@@ -39,7 +39,7 @@ tidyr y dplyr para transformar datos.
 
 ### 6. Iteraciones en R
 Se presenta el uso de for loops y el paquete purrr para iterar sobre los
-elementos de un data frame. También se hace una breve mención de cómo utilizar
+elementos de un data frame. Se menciona brevemente cómo utilizar la
 evaluación tidy para integrar funciones de ggplot2 en funciones personalizadas.
 
 ## Bibliografía
