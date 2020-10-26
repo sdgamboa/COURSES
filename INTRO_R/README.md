@@ -13,7 +13,7 @@ uso de paquetes del tidyverse para la visualización y manipulación de datos.
 
 ### 1. Introducción a R y Rstudio
 Se presenta una breve historia de la evolución de R y se introduce a la consola
-de R y Rstudio. Entre otros temas, se explica como instalar y desinstalar paquetes,
+de R y Rstudio. Entre otros temas, se explica cómo instalar y desinstalar paquetes,
 y cómo consultar la documentación de los paquetes desde R.
 
 ### 2. Estructuras de datos en R
