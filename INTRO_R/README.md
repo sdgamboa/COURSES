@@ -11,7 +11,8 @@ uso de paquetes del tidyverse para la visualización y manipulación de datos. E
 es un curso de nivel básico, dirigido a personas que necesitan o quieren analizar
 sus datos en R, pero no han tenido experiencia previa con R u otro lenguaje
 de programación para análisis de datos. Al finalizar, los alumnos contaran con
-herramientas suficientes para comenzar a analizar sus propios datos de trabajo.
+herramientas suficientes para comenzar a analizar sus propios datos de trabajo
+en R.
 
 ## Contenido
 
