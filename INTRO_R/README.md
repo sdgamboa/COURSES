@@ -12,7 +12,7 @@ uso de paquetes del tidyverse para la visualización y manipulación de datos.
 ## Contenido
 
 ### 1. Introducción a R y Rstudio
-Se presenta una breve historia de la evolución de R y se introduce a la consola
+Se presenta una breve historia de la evolución de R y se introduce la consola
 de R y Rstudio. Entre otros temas, se explica cómo instalar y desinstalar paquetes,
 y cómo consultar la documentación de los paquetes desde R.
 
@@ -25,10 +25,10 @@ de diferentes tipos de vectores.
 
 ### 4. Gráficos en R
 Se presentan algunos ejemplos de cómo hacer gráficos con base R. Se hace énfasis
-en cómo hacer gráficos con  ggplot2.
+en cómo hacer gráficos con ggplot2.
 
 ### 5. Manipulación de datos en R
-Se presenta formalmente a los paquetes del tidyverse. Se explica cómo utilizar
+Se presentan formalmente los paquetes del tidyverse. Se explica cómo utilizar
 el operador `%>%` del paquete magrittr y varias funciones de los paquetes
 tidyr y dplyr para transformar datos.
 
