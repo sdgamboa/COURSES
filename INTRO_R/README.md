@@ -4,9 +4,9 @@
 
 ## Descripción
 
-R es uno de los lenguajes de programación más populares para el análisis de datos.
+[R](https://www.r-project.org/) es uno de los lenguajes de programación más populares para el análisis de datos.
 El presente material de apoyo contiene información para la impartición de un curso
-que tiene como objetivo introducir a los participantes a R y Rstudio, así como al
+que tiene como objetivo introducir a los participantes a R y [Rstudio](https://rstudio.com/), así como al
 uso de paquetes del tidyverse para la visualización y manipulación de datos. Este
 es un curso de nivel básico, dirigido a personas que necesitan o quieren analizar
 sus datos en R, pero no han tenido experiencia previa con R u otro lenguaje
@@ -30,17 +30,17 @@ de diferentes tipos de vectores.
 
 ### 4. Gráficos en R
 Se presentan algunos ejemplos de cómo hacer gráficos con base R. Se hace énfasis
-en cómo hacer gráficos con ggplot2.
+en cómo hacer gráficos con [ggplot2](https://ggplot2.tidyverse.org/).
 
 ### 5. Manipulación de datos en R
-Se presentan formalmente los paquetes del tidyverse. Se explica cómo utilizar
-el operador `%>%` del paquete magrittr y varias funciones de los paquetes
-tidyr y dplyr para transformar datos.
+Se presentan formalmente los paquetes del [tidyverse](https://www.tidyverse.org/). Se explica cómo utilizar
+el operador `%>%` del paquete [magrittr](https://magrittr.tidyverse.org/) y varias funciones de los paquetes
+[tidyr](https://tidyr.tidyverse.org/) y [dplyr](https://dplyr.tidyverse.org/) para transformar datos.
 
 ### 6. Iteraciones en R
-Se presenta el uso de for loops y el paquete purrr para iterar sobre los
+Se presenta el uso de for loops y el paquete [purrr](https://purrr.tidyverse.org/) para iterar sobre los
 elementos de un data frame. Se menciona brevemente cómo utilizar la
-evaluación tidy para integrar funciones de ggplot2 en funciones personalizadas.
+[tidyeval](https://tidyeval.tidyverse.org/) para integrar funciones de ggplot2 en funciones personalizadas.
 
 ## Bibliografía
 
