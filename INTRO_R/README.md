@@ -7,7 +7,7 @@
 [R](https://www.r-project.org/) es uno de los lenguajes de programación más populares para el análisis de datos.
 El presente material de apoyo contiene información para la impartición de un curso
 que tiene como objetivo introducir a los participantes a R y [Rstudio](https://rstudio.com/), así como al
-uso de paquetes del tidyverse para la visualización y manipulación de datos. Este
+uso de paquetes del [tidyverse](https://www.tidyverse.org/) para la visualización y manipulación de datos. Este
 es un curso de nivel básico, dirigido a personas que necesitan o quieren analizar
 sus datos en R, pero no han tenido experiencia previa con R u otro lenguaje
 de programación para análisis de datos. Al finalizar, los alumnos contarán con
@@ -33,14 +33,13 @@ Se presentan algunos ejemplos de cómo hacer gráficos con base R. Se hace énfa
 en cómo hacer gráficos con [ggplot2](https://ggplot2.tidyverse.org/).
 
 ### 5. Manipulación de datos en R
-Se presentan formalmente los paquetes del [tidyverse](https://www.tidyverse.org/). Se explica cómo utilizar
+Se presentan formalmente los paquetes del tidyverse. Se explica cómo utilizar
 el operador `%>%` del paquete [magrittr](https://magrittr.tidyverse.org/) y varias funciones de los paquetes
 [tidyr](https://tidyr.tidyverse.org/) y [dplyr](https://dplyr.tidyverse.org/) para transformar datos.
 
 ### 6. Iteraciones en R
 Se presenta el uso de for loops y el paquete [purrr](https://purrr.tidyverse.org/) para iterar sobre los
-elementos de un data frame. Se menciona brevemente cómo utilizar la
-[tidyeval](https://tidyeval.tidyverse.org/) para integrar funciones de ggplot2 en funciones personalizadas.
+elementos de un data frame. Se menciona brevemente cómo utilizar [tidyeval](https://tidyeval.tidyverse.org/) para integrar funciones de ggplot2 en funciones personalizadas.
 
 ## Bibliografía
 
