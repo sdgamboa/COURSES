@@ -37,7 +37,7 @@ Se presentan formalmente los paquetes del tidyverse. Se explica cómo utilizar
 el operador `%>%` del paquete [magrittr](https://magrittr.tidyverse.org/) y varias funciones de los paquetes
 [tidyr](https://tidyr.tidyverse.org/) y [dplyr](https://dplyr.tidyverse.org/) para transformar datos.
 
-### 6. Iteraciones en R
+### 6. Programación funcional en R
 Se presenta el uso de for loops y el paquete [purrr](https://purrr.tidyverse.org/) para iterar sobre los
 elementos de un data frame. Se menciona brevemente cómo utilizar [tidyeval](https://tidyeval.tidyverse.org/) para integrar funciones de ggplot2 en funciones personalizadas.
 
