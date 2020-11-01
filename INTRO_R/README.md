@@ -24,7 +24,7 @@ y cómo consultar la documentación de los paquetes desde R.
 ### 2. Estructuras de datos en R
 Se presentan los principales tipos de vectores en R.
 
-### 3. Subsetting
+### 3. Subsetting en R
 Se explica cómo utilizar los operadores `[]`, `[[]]` y `$` para extraer información
 de diferentes tipos de vectores.
 
