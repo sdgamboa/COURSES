@@ -4,7 +4,7 @@
 
 # Vectores atómicos -------------------------------------------------------
 
-# Númerico
+# Numérico
 (int_vector <- c(1L, -10L, 0L, NA, 1000L, 5L))
 dbl_vector <- c(2.6, 5.7, -5, NaN, NA, Inf)
 
