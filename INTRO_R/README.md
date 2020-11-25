@@ -1,6 +1,6 @@
 
 # Introducción a la visualización y manipulación de datos en R
-**Samuel David Gamboa Tuz**
+**Dr. Samuel David Gamboa Tuz**
 
 ## Descripción
 
