@@ -14,9 +14,9 @@ de programación para análisis de datos. Al finalizar, los alumnos contarán co
 herramientas suficientes para comenzar a analizar sus propios datos de trabajo
 en R.
 
-URL corta del curso (redirecciona a esta misma dirección): https://tinyurl.com/intro2R-sdgt.
+URL corta del curso (redirecciona a esta misma dirección): https://tinyurl.com/intro2R-sdgt
 
-Las diapositivas fueron creadas con el paquete de R *Xaringan* (https://github.com/yihui/xaringan).
+Las diapositivas fueron creadas con el paquete de R *Xaringan*: https://github.com/yihui/xaringan
 
 
 ## Contenido
