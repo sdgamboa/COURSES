@@ -14,6 +14,8 @@ de programación para análisis de datos. Al finalizar, los alumnos contarán co
 herramientas suficientes para comenzar a analizar sus propios datos de trabajo
 en R.
 
+Tiny URL del curso: https://tinyurl.com/intro2R-sdgt
+
 ## Contenido
 
 ### 1. Introducción a R y Rstudio
@@ -55,7 +57,9 @@ La mayor parte de este material está basado en la información contenida en:
 
 + Centro de Investigación y Asistencia en Tecnología y Diseño del Estado de Jalisco, A.C. (CIATEJ), 2020. [Módulo de la asignatura Biología Computacional del programa de Maestría de Posgrado en Ciencias en Inovación Biotecnológica](https://github.com/sdgamboa/certificates/blob/master/CONSTANCIA_CIATEJ_2020_CURSO_R.pdf).
 
+## Licencia
 
+Attribution-NonCommercial 4.0 International (CC BY-NC 4.0): https://creativecommons.org/licenses/by-nc/4.0/
 
 
 
