@@ -17,7 +17,7 @@ en R.
 
 URL corta del curso (redirecciona a este mismo sitio): https://tinyurl.com/intro2R-sdgt
 
-Las diapositivas fueron creadas con el paquete de R *Xaringan*: https://github.com/yihui/xaringan
+Las diapositivas fueron creadas con el paquete *Xaringan* en R: https://github.com/yihui/xaringan
 
 
 ## Contenido
