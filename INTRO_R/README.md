@@ -6,8 +6,8 @@
 
 [R](https://www.r-project.org/) es uno de los lenguajes de programación más populares para el análisis de datos.
 El presente material de apoyo contiene información para la impartición de un curso
-que tiene como objetivo introducir a los participantes a R y [Rstudio](https://rstudio.com/), así como al
-uso de paquetes del [tidyverse](https://www.tidyverse.org/), para la visualización y manipulación de datos.
+que tiene como objetivo introducir a los participantes a R, [Rstudio](https://rstudio.com/) y paquetes del
+[tidyverse](https://www.tidyverse.org/) para la visualización y manipulación de datos.
 
 Este es un curso de nivel básico dirigido a personas que necesitan o quieren analizar
 sus datos en R, pero no han tenido experiencia previa con R u otro lenguaje
@@ -17,7 +17,7 @@ en R.
 
 URL corta del curso (redirecciona a este mismo sitio): http://bit.ly/sdgt-intro2R
 
-Las diapositivas fueron creadas con el paquete de R *Xaringan*: https://github.com/yihui/xaringan
+Las diapositivas fueron creadas con el paquete *Xaringan* en R: https://github.com/yihui/xaringan
 
 
 ## Contenido
