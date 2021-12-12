@@ -1,0 +1,326 @@
+---
+title: "Ejercicios resueltos"
+author: "Samuel D. Gamboa Tuz"
+date: "12/7/2021"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Respuesta a los [ejercicios](https://github.com/sdgamboa/COURSES/blob/main/INTRO_R/scripts/ciatej2021/ejercicio1.R)
+del módulo de introducción a R.
+
+
+Carguemos los paquetes necesarios:
+
+
+```{r adjuntar paquetes, message=FALSE}
+library(readr)
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(ggrepel)
+library(forcats)
+```
+
+## Descargar e importar archivos
+
+Los datos para estos ejercicios serán los mismos que utilizamos durante las
+sesiones en clase:
+
++ El archivo con los *fold change* comparando L-CN (hoja control) vs L-20
+(hoja después de 20 días de sequía). Liga: https://raw.githubusercontent.com/sdgamboa/misc_datasets/master/L0_vs_L20.tsv
+
++ El archivo con la matriz de TPM y los identificadores completos de los
+genes: https://static-content.springer.com/esm/art%3A10.1038%2Fs41598-018-32904-2/MediaObjects/41598_2018_32904_MOESM3_ESM.xlsx
+
+La fuente de estos datos es: https://doi.org/10.1038/s41598-018-32904-2
+
+Guardemos las ligas en un *character string*. En el código de abajo, 
+utilicé `paste0` solo para que la liga no ocupe más de 80 columnas (esto puede
+ayudar a que el código sea más cómodo de leer).
+
+```{r urls}
+## URL to the Fold change file
+fc_url <- paste0(
+  "https://raw.githubusercontent.com/sdgamboa/misc_datasets/master/",
+  "L0_vs_L20.tsv"
+)
+
+## URL to the count matrix file
+mat_url <- paste0(
+  "https://static-content.springer.com/esm/", 
+  "art%3A10.1038%2Fs41598-018-32904-2/MediaObjects/", 
+  "41598_2018_32904_MOESM3_ESM.xlsx"
+)
+```
+
+Utilicemos `download.file` para descargar los archivos en el directorio de
+trabajo actual (se puede consultar con `getwd` o cambiar con `setwd`).
+
+```{r download files, message=FALSE}
+fc_file <- "fc_file.tsv"
+mat_file <- "mat_file.xlsx"
+
+if (!file.exists(fc_file))
+  download.file(fc_url, fc_file)
+
+if (!file.exists(mat_file))
+  download.file(mat_url, mat_file)
+```
+
+El archivo "fc_file.tsv" es un arhivo delimitado por tabs (.tsv) así que podemos
+usar la función `read_tsv` del paquete `readr` para importar el archivo:
+
+```{r import FC file, message=FALSE}
+fc_data <- read_tsv(fc_file, show_col_types = FALSE)
+head(fc_data)
+```
+
+El archivo contiene cuatro columnas:
+
+| Columna | Descripción |
+| ------- | ----------- |
+| Genes | La columna con los identificadores de los genes. |
+| logFC | Log2 del *Fold Change*. |
+| PValue | El P-value por gen. A menor valor, mayor significancia. |
+| FDR | El P-value ajustado. |
+
+
+El archivo "mat_file.xlsx" es un archivo de excel por lo que necesitamos la
+función `read_xlsx` del paquete `readxl` para importar el archivo:
+
+```{r, warning=FALSE}
+mat <- read_xlsx(
+    path = mat_file, range = "Supplementary Table S2!A5:AQ27774"
+) %>% 
+  select(Cpapaya_ID, `L-CNa`:last_col())
+
+glimpse(mat)
+```
+
+El archivo original contiene muchas columnas, pero con la línea 
+`select(Cpapaya_ID, `L-CNa`:last_col())` solo seleccionamos las columnas de
+interés:
+
+| Columna | Descripción |
+| ------- | ----------- |
+| Cpapaya_ID | Contiene los indentificadores completos de los genes. Está relacionada a la columna "Genes" en el archivo "fc_file.tsv".|
+| L-CNa - R-20b | Valores de TPM por réplica (duplicados). L: hoja, R: Raiz, S: Savia; CN: control, 10 y 20: días de sequía; a y b: duplicados. |
+
+## Ejercicio 1.1
+
+> Econtrar los genes signigicativos UP and DOWN a diferentes thresholds
+de significancia (FDR 0.1, 0.05, 0.001, FC > 2). Hacer gráfico de barras 
+comparativo.
+
+El número de genes regulados significativamente va a depender de los thresholds
+que establezcamos. Por ejemplo, un threshold de FDR=0.001 es más estringente que
+un threshold de FDR=0.1, por lo que menos genes serían catalogados como
+significativos en el primer caso.
+
+Vamos a etiquetar los genes como:
+
++ "Up-regulated", o regulados hacia, si tienen un fold change (FC) mayor o igual
+que 2 y un FDR menor a un threshold determinado.
++ "Down-regulated", o regulados hacia abajo, si tienen un FC menor o igual que 
+-2 y un FDR menor a un threshold determinado.
++ "Unchanged", o sin cambios, si no tienen relevancia significativa.
+
+Usaremos tres valores de threshold: 0.001, 0.05, y 0.1.
+
+Definamos una función para ayudarnos a etiquetar los genes:
+
+```{r}
+label_sig <- function(fdr_vctr, fc_vctr, fdr, fc = 2) {
+  dplyr::case_when(
+    fdr_vctr <= fdr & fc_vctr >= log(fc) ~ "Up-regulated",
+    fdr_vctr <= fdr & fc_vctr <= -log(fc) ~ "Down-regulated",
+    TRUE ~ "Unchanged"
+  )
+}
+```
+
+
+Utilicemos mutate para crear nuevas columnas con las etiquetas. Luego 
+las cambiamos a formato tidy con `pivot_longer`:
+
+```{r}
+fc_data <- fc_data %>% 
+  mutate(
+    sig_001 = label_sig(FDR, logFC, 0.001),
+    sig_05 = label_sig(FDR, logFC, 0.05),
+    sig_1 = label_sig(FDR, logFC, 0.1)
+  ) %>% 
+      pivot_longer(
+        names_to = "sig_threshold", values_to = "sig_label",
+        cols = sig_001:sig_1
+    )
+glimpse(fc_data)
+```
+
+Para el primer ejercicio usemos `count` de `dplyr` para contar los números de
+genes de acuerdo a las etiquetas: 
+
+```{r}
+fc_counts <- fc_data %>%
+  count(sig_threshold, sig_label)
+fc_counts
+```
+
+La tabla de arriba la podemos gráficar con `geom_col`:
+
+
+```{r}
+fc_counts %>% 
+  filter(sig_label != "Unchanged") %>% 
+  ggplot(aes(sig_threshold, n)) +
+  geom_col(aes(fill = sig_label), position = position_dodge2(0.9)) +
+  labs(
+    x = "Significance threshold (FDR + FC == 2)", y = "Number of genes",
+    title = "Number of significantly regulated genes at different thresholds"
+  ) +
+  scale_x_discrete(
+    labels = c("0.001", "0.5", "0.1")
+  ) +
+  scale_fill_discrete(name = "Gene regulation", labels = c("Down", "Up")) +
+  theme_bw()
+```
+
+
+## Ejercicio 2.1
+
+> Hacer un volcano plot (comparación FC vs Pvalue) y anotar en el volcano plot
+los top 10 hacia arriba y hacia abajo. Elegir un threshold de significancia.
+Anotar con  geom_text o geom_label.
+
+Vamos a filtrar únicamente los genes etiquetados con significancia a un
+threshold de FDR = 0.001:
+
+```{r}
+fc_001 <- fc_data %>% 
+  filter(sig_threshold == "sig_001")
+```
+
+
+Definamos como los top 10 a los genes que hayan sido etiquetados como 
+"Up-" o "Down-regulated" y que tengan el mayor valor de fold change (o menor
+para el caso de los genes regulados hacia abajo).
+
+```{r}
+fc_001_top10_up <- fc_001 %>% 
+  filter(sig_label == "Up-regulated") %>% 
+  arrange(-logFC) %>% 
+  head(10)
+
+fc_001_top10_down <- fc_001 %>% 
+  filter(sig_label == "Down-regulated") %>% 
+  arrange(logFC) %>% 
+  head(10)
+
+## Join in a single tibble
+top10 <- bind_rows(fc_001_top10_up, fc_001_top10_down)
+```
+
+Un volcano plot es un gráfico de dispersión con el logFC en el eje x y el 
+-log10 del P-value en el eje y.
+
+En el gráfico de abajo graficamos primero el dataframe "fc_001" y le 
+agregamos otra capa de geom con los datos en "top10" 
+(la línea con `geom_text_repel` del paquete `ggrepel`).
+
+```{r}
+fc_001 %>% 
+  ggplot(aes(logFC, -log10(PValue))) +
+  geom_point(aes(color = sig_label)) +
+  geom_text_repel(
+    data = top10, mapping = aes(logFC, -log10(PValue), label = Genes)
+  ) +
+  theme_bw()
+```
+
+
+## Ejercicio 1.3
+
+> De los top 10 UP y DOWN obtener los datos de expresión de TPM.Graficar las
+medias con las barras de error (SD)
+
+Para este ejercicio necesitamos hacer match entre los identificadores en la
+columna "Genes" de "top10" y 
+los identificadores en la columna "Cpapaya_ID" de "mat".
+
+
+```{r}
+mat$Genes <- mat$Cpapaya_ID %>%
+  sub("^.+_", "", .) %>%
+  sub("\\.", "_", .)
+
+mat[,c("Genes", "Cpapaya_ID")] %>% 
+  head()
+```
+
+Ahora podemos unir los dos dataframes con `left_join`:
+
+```{r}
+top10_new <- left_join(top10, mat, by = "Genes")
+glimpse(top10_new)
+```
+
+En la línea de código de abajo creamos un tibble en formato tidy:
+
+```{r}
+top10_tidy <- top10_new %>% 
+  select(Cpapaya_ID, sig_label, starts_with("L-")) %>% 
+  pivot_longer(
+    names_to = "Replicate", values_to = "TPM", cols = `L-CNa`:last_col()
+  ) %>% 
+  arrange(sig_label) %>% 
+  mutate(
+    Sample = 
+      factor(sub("a|b$", "", Replicate), levels = c("L-CN", "L-10", "L-20")),
+    # sig_label = factor(sig_label, levels = c("Up-regulated", "Down-regulated")),
+    Cpapaya_ID = fct_inorder(Cpapaya_ID)
+  ) %>% 
+  select(sig_label, Cpapaya_ID, Sample, TPM, -Replicate)
+head(top10_tidy)
+```
+
+Ahora creamos un resumen con `summarise` (media, desviacíon estándar y error
+estándar):
+
+```{r}
+top10_summary <- top10_tidy %>% 
+  group_by(sig_label, Cpapaya_ID, Sample) %>% 
+  summarise(
+    mean = mean(TPM),
+    sd = sd(TPM),
+    se = sd(TPM)/sqrt(length(TPM))
+  ) %>% 
+  ungroup()
+head(top10_summary)
+```
+
+Podermos graficar las barras de error con `geom_errorbar`:
+
+```{r, fig.width=10, fig.height=10}
+top10_summary %>% 
+  ggplot(aes(Sample, mean)) +
+  geom_col(aes(fill = sig_label)) +
+  geom_errorbar(
+    aes(ymin = mean - se, ymax = mean + se), width = 0.4
+    ) +
+  facet_wrap(~Cpapaya_ID, scales = "free_y") +
+  theme_bw()
+```
+
+```{r}
+sessionInfo()
+```
+
+
+
